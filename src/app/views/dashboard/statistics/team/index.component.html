@@ -1,0 +1,24 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div class="flex gap-5" *ngIf="!loading">
+        <div class="flex-1">
+            <h2 class="font-bold text-2xl text-black mb-5">Team Management</h2>
+            <app-data-table [data]="list" [columns]="columns" tableHeading="Team Management Table"
+                pageTitle="Team Management" [isSearched]="false" (deleteData)="deleteElement($event)"
+                (detailView)="detailView($event)"  page_name="team report" [isEdit]="true"/>
+        </div>
+        <div class="rounded-lg shadow-xl p-4 bg-white max-w-[450px] mt-[52px]">
+            <add-new-member [member]="editData"/>
+        </div>
+    </div>
+    <!-- <div *ngIf="viewData">
+        <modal-compnent [item]="viewData" (closeModal)="hideModal()" previewTitle="Team view" />
+    </div> -->
+    <div *ngIf="isDeleteModal">
+        <delete-modal-compnent [isDeleteModal]="isDeleteModal" (closeDeleteModal)="hideModal()"
+            (confirmDelete)="confirmDelete()" />
+    </div>
+</main>

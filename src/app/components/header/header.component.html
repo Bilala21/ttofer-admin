@@ -1,0 +1,49 @@
+<header
+    class="fixed left-0 top-0 w-full ps-64 z-10 shadow-lg bg-white max-h-20 min-h-20 flex items-center justify-between pe-6">
+    <h2 class="text-2xl font-medium text-black">Dashboard</h2>
+    <div class="flex items-center gap-x-3">
+        <!-- NOTIFICATIONS -->
+        <div
+            class="flex gap-2 relative flex-col items-center justify-center border-r-2 border-[#dadde5b1] pe-4 cursor-default">
+            <div (click)="handleToggle('notCount',notCount)" class="icon">
+                <span *ngIf="notCount"
+                    class="absolute -top-2 start-4 text-blue-500 icon">{{notCount}}</span>
+                <img src="assets/img/shared/bell.png" alt='notCount' width="20" class="object-scale-down icon">
+                <span class="text-[10px] text-dark-500 icon">Notifications</span>
+            </div>
+            <div [ngClass]="toggleType=='notCount' ? 'block' : 'hidden'">
+                <app-header-dropdown title="Notifications" [loadMore]="load_more" [data]="notifications"
+                    (handleLinkClick)="handleLinkClick()" (loadMoreFun)="loadMore($event)" [fieldName]="notV" />
+            </div>
+        </div>
+        <!-- MESSAGES -->
+        <div
+            class="flex gap-2 relative flex-col items-center justify-center border-r-2 border-[#dadde5b1] pe-4 cursor-default">
+            <div (click)="handleToggle('msgCount',msgCount)" class="icon">
+                <span *ngIf="msgCount" class="absolute -top-2 start-4 text-blue-500 icon">{{msgCount}}</span>
+                <img src="assets/img/shared/bell.png" alt='msgCount' width="20" class="object-scale-down icon">
+                <span class="text-[10px] text-dark-500 icon">Messages</span>
+            </div>
+            <div [ngClass]="toggleType=='msgCount' ? 'block' : 'hidden'">
+                <app-header-dropdown title="Notifications" [loadMore]="load_more" [data]="messages"
+                    (handleLinkClick)="handleLinkClick()" (loadMoreFun)="loadMore($event)" [fieldName]="msgV" />
+            </div>
+        </div>
+        <!-- REPORTS -->
+        <div
+            class="flex gap-2 relative flex-col items-center justify-center border-r-2 border-[#dadde5b1] pe-4 cursor-default">
+            <div (click)="handleToggle('reportCount',reportCount)" class="icon">
+                <span *ngIf="reportCount" class="absolute -top-2 start-4 text-blue-500 icon">{{reportCount}}</span>
+                <img src="assets/img/shared/bell.png" alt='reportCount' width="20" class="object-scale-down icon">
+                <span class="text-[10px] text-dark-500 icon">Reports</span>
+            </div>
+            <div [ngClass]="toggleType=='reportCount' ? 'block' : 'hidden'">
+                <app-header-dropdown [loadMore]="load_more" [data]="reports" (handleLinkClick)="handleLinkClick()"
+                    (loadMoreFun)="loadMore($event)" [fieldName]="rptV" />
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- [routerLink]="['/dashboard/statistics/reports']" -->

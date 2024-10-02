@@ -1,0 +1,8 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="flex items-center h-11 gap-3 ms-auto w-fit">
+    <div class=" w-[335px] flex items-center h-full justify-between overflow-hidden bg-white pe-3 rounded-lg">
+        <input type="text" class="h-full flex-1 px-3 focus-visible:outline-none text-xs"
+            placeholder="{{searchPlaceholder}}" formControlName="search">
+        <span><img src="assets/img/shared/search.png" alt="image" width="20" height="20"></span>
+    </div>
+    <button type="submit" class="bg-yellow-500 w-[123px] text-sm h-full rounded-lg">Search</button>
+</form>

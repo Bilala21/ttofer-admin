@@ -1,0 +1,26 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div class="flex gap-5" *ngIf="!loading">
+        <div class="flex-1">
+            <div>
+                <h2 class="font-bold text-2xl text-black mb-5">Ttoffer gifts</h2>
+                <a routerLink="/dashboard/ttoffer-gift/create" class="flex items-center gap-3 bg-blue-500 text-white w-fit px-4 py-3 rounded-md ms-auto mb-5 hover:opacity-80">
+                    Add Ttoffer Gift
+                </a>
+            </div>
+            <app-data-table [data]="list" [columns]="columns" tableHeading="Ttoffer gifts Table"
+                pageTitle="Ttoffer gifts" [isSearched]="false" (deleteData)="deleteElement($event)"
+                (detailView)="detailView($event)" page_name="team report" [isEdit]="true" />
+        </div>
+    </div>
+    <!-- <div *ngIf="viewData">
+        <modal-compnent [item]="viewData" (closeModal)="hideModal()" previewTitle="Team view" />
+    </div> -->
+    <div *ngIf="isDeleteModal">
+        <delete-modal-compnent [isDeleteModal]="isDeleteModal" (closeDeleteModal)="hideModal()"
+            (confirmDelete)="confirmDelete()" />
+    </div>
+</main>

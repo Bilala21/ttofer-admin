@@ -1,0 +1,86 @@
+<main class="pe-5 ps-1 pt-2 mb-10">
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div *ngIf="!loading">
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div *ngFor="let item of data; let i = index">
+                <div class="shadow-lg h-full min-h-[155px] p-[18px] rounded-lg {{item.classes}}">
+                    <div class="flex items-center gap-2 capitalize">
+                        <span><img src="assets/img/shared/{{item.icon}}" alt="imag" class="w-9 h-9"></span>
+                        <span class="xl:text-xl lg:text-base">{{item.name}}</span>
+                    </div>
+                    <p class="my-2 text-4xl font-semibold">{{item.numbers}}</p>
+                    <p class="text-xs">{{item.text}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-6">
+            <div class="rounded-lg shadow-xl p-4 bg-white">
+                <div class="flex items-center justify-between mb-6">
+                    <h2>User Registration history</h2>
+                    <div class="hidden">
+                        <p class="font-medium text-[8px]">Data Range</p>
+                        <div class="flex flex-col gap-5 mt-3">
+                            <input type="range" min="1" max="100" value="20" class="slider" id="myRange">
+                            <input type="range" min="1" max="100" value="30" class="slider" id="myRange">
+                        </div>
+                    </div>
+                </div>
+                <canvas id="barCanvasChart">{{chart}}</canvas>
+            </div>
+            <div class="rounded-lg shadow-xl p-4 bg-white">
+                <div class="flex items-center justify-between mb-6">
+                    <h2>Ad Posting History</h2>
+                    <div class="hidden">
+                        <p class="font-medium text-[8px]">Data Range</p>
+                        <div class="flex flex-col gap-5 mt-3">
+                            <input type="range" min="1" max="100" value="20" class="slider" id="myRange">
+                            <input type="range" min="1" max="100" value="30" class="slider" id="myRange">
+                        </div>
+                    </div>
+                </div>
+                <canvas id="lineCanvasChart">{{chart}}</canvas>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-6">
+            <div class="rounded-lg shadow-xl p-4 text-black bg-white">
+                <h2 class="text-base font-bold mb-1">Ads Verification Requests</h2>
+                <div>
+                    <div class="flex justify-between items-center pt-2 text-xs font-normal text-black px-2">
+                        <span>Ad ID</span>
+                        <span>User ID</span>
+                        <span>Date Submited</span>
+                        <span>Ad Content Preview</span>
+                        <span>Verification Status</span>
+                        <span class="pe-4">Action</span>
+                    </div>
+                    <div class="border rounded py-1.5 px-2 flex  items-center mt-2 text-xs font-normal text-black"
+                        *ngFor="let ad of adsData">
+                        <span class="w-[75px]">#{{ad.id}}</span>
+                        <span class="w-[75px]">#{{ad.user_id}}</span>
+                        <span class="w-[100px] text-center">{{dateTimeFormat(ad.created_at,"D/MMM/yy")}}</span>
+                        <span class="w-[160px] text-center">{{ad.category?ad.category.name:"N/A"}}</span>
+                        <span class="w-[150px] text-center">{{isVerified.includes(ad.id)||+ad.status
+                            ?"Verified":"Pending"}}</span>
+                        <button type="button" role="status"
+                            class="px-3 ms-4 text-center bg-yellow-500 rounded  py-[1px] text-[8px]"
+                            [ngClass]="{'!bg-dark-600 !text-white': isVerified.includes(ad.id) || +ad.status}"
+                            (click)="handleStatus(ad.id)">
+                            {{isVerified.includes(ad.id) || +ad.status?"Verified":"Pending"}}
+                        </button>
+                    </div>
+                    <!-- bg-yellow-500 -->
+                </div>
+            </div>
+            <div class="flex-1 rounded-lg shadow-xl p-4 bg-white">
+                <h2 class="text-base font-bold mb-1 border-b pb-2">New Messages</h2>
+                <div class="h-[71px] rounded-lg bg-gray-500 mt-2 py-2 px-3" *ngFor="let message of latestMessages">
+                    <a [routerLink]="['/dashboard/messages']" [queryParams]="{id: message.conversation_id}">
+                        <message [conversation]="message"></message>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

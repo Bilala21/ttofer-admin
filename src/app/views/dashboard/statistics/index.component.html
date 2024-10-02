@@ -1,0 +1,24 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div *ngIf="!loading">
+        <app-data-table [data]="list" [columns]="columns" tableHeading="Reports Table"
+            searchPlaceholder="Search by report ID, user ID, or report content" pageTitle="Reports"
+            searchBnText="Delete Selected reports" (searchUsers)="searchFillter($event)"
+            (detailView)="detailView($event)" page_name="report" (deleteData)="deleteElement($event)" />
+    </div>
+    <div *ngIf="viewData">
+        <modal-compnent [item]="viewData" (closeModal)="hideModal()" previewTitle="Report view"
+            (handleStatus)="handleStatus($event)" />
+    </div>
+    <div *ngIf="isDeleteModal">
+        <delete-modal-compnent [isDeleteModal]="isDeleteModal" (closeDeleteModal)="hideModal()"
+            (confirmDelete)="confirmDelete()" flag="report" />
+    </div>
+</main>
+
+<!-- (detailView)="detailView($event)"  -->
+<!-- (editRecord)="editRecord($event)" -->
+<!-- (markAsRead)="markAsRead($event)" -->

@@ -1,0 +1,19 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div *ngIf="!loading">
+        <app-data-table [data]="list" [columns]="columns" tableHeading="Ads Verification Requests Table"
+            searchPlaceholder="Search by ad title, user ID, or ad ID" pageTitle="Ads Verification Requests"
+            (searchUsers)="searchFillter($event)" (detailView)="detailView($event)" searchBnText="Delete Selected Ads"
+            [isDetail]="true" page_name="Ad history view" />
+    </div>
+    <div *ngIf="viewData">
+        <modal-compnent [item]="viewData" (closeModal)="hideModal()" previewTitle="Ad History" />
+    </div>
+</main>
+
+<!-- (detailView)="detailView($event)"  -->
+<!-- (editRecord)="editRecord($event)" -->
+<!-- (markAsRead)="markAsRead($event)" -->

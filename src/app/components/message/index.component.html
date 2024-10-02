@@ -1,0 +1,14 @@
+<h3 class="font-semibold text-sm">Conversation ID:#{{conversation?.conversation_id}}</h3>
+<div class="flex items-center justify-between">
+    <div class="flex items-center mt-1 text-xs relative">
+        <div class="border-r border-dark-500 pe-3">
+            <p class="m-0">{{conversation?.buyer?.name}} / #{{conversation?.buyer.id}}</p>
+            <small class="text-dark-700">Buyer</small>
+        </div>
+        <div class="ps-3">
+            <p class="m-0">{{conversation?.seller?.name}} / #{{conversation?.seller?.id}}</p>
+            <small class="text-dark-700">Seller</small>
+        </div>
+    </div>
+    <p class="text-[8px] message-time">{{dateTimeFormat(conversation?.created_at,"hh:mm A")}}</p>
+</div>

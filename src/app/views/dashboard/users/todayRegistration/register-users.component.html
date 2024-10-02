@@ -1,0 +1,19 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div *ngIf="!loading">
+        <app-data-table [data]="list" [columns]="columns" tableHeading="Verified users Table"
+            searchPlaceholder="Search by name, email, or user ID" pageTitle="Today’s Registration"
+            (searchUsers)="searchFillter($event)" (bulkDeleteUser)="bulkDeleteUser($event)"
+            (detailView)="detailView($event)" searchBnText="Delete Selected Users" page_name="users"/>
+    </div>
+    <div *ngIf="viewData">
+        <modal-compnent [item]="viewData" (closeModal)="hideModal()" previewTitle="Today’s Registration" />
+    </div>
+    <div *ngIf="isDeleteModal">
+        <delete-modal-compnent [isDeleteModal]="isDeleteModal" (closeDeleteModal)="hideModal()"
+            (confirmDelete)="confirmDelete()" />
+    </div>
+</main>

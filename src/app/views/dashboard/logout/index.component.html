@@ -1,0 +1,131 @@
+<main class="pe-5 ps-1 pt-2 mb-10">
+
+    <!-- <app-breadcrumb [name]="'User <span class=\'text-red-500\'>Admin</span>'"></app-breadcrumb> -->
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div *ngFor="let item of data; let i = index">
+            <div class="shadow-lg h-full min-h-[155px] p-[18px] rounded-lg {{item.classes}}">
+                <div class="flex items-center gap-2 capitalize">
+                    <span><img src="assets/img/shared/{{item.icon}}" alt="imag" class="w-9 h-9"></span>
+                    <span class="xl:text-xl lg:text-base">{{item.name}}</span>
+                </div>
+                <p class="my-2 text-4xl font-semibold">{{item.numbers}}</p>
+                <p class="text-xs">{{item.text}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-6">
+        <div class="rounded-lg shadow-xl p-4 bg-white">
+            <canvas id="barCanvasChart">{{chart}}</canvas>
+        </div>
+        <div class="rounded-lg shadow-xl p-4 bg-white">
+            <canvas id="lineCanvasChart">{{chart}}</canvas>
+        </div>
+    </div>
+    <div class="flex gap-4 mt-6">
+        <div class="rounded-lg shadow-xl p-4 text-black bg-white">
+            <h2 class="text-base font-bold mb-1">Ads Verification Requests</h2>
+            <div>
+                <div class="flex justify-between items-center pt-2 text-xs font-normal text-black px-2">
+                    <span>Ad ID</span>
+                    <span>User ID</span>
+                    <span>Date Submited</span>
+                    <span>Ad Content Preview</span>
+                    <span>Verification Status</span>
+                    <span class="pe-4">Action</span>
+                </div>
+                <div class="border rounded py-1.5 px-2 flex  items-center mt-2 text-xs font-normal text-black">
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[100px] text-center">24/Jan/2024</span>
+                    <span class="w-[160px] text-center">Car For sale</span>
+                    <span class="w-[150px] text-center">Pending</span>
+                    <span
+                        class="px-3 ms-4 text-center bg-dark-600 rounded text-white py-[1px] text-[8px]">Pending</span>
+                </div>
+                <div class="border rounded py-1.5 px-2 flex  items-center mt-2 text-xs font-normal text-black">
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[100px] text-center">24/Jan/2024</span>
+                    <span class="w-[160px] text-center">Car For sale</span>
+                    <span class="w-[150px] text-center">Pending</span>
+                    <span class="px-3 ms-4 text-center bg-yellow-500 rounded py-[1px] text-[8px]">Pending</span>
+                </div>
+                <div class="border rounded py-1.5 px-2 flex  items-center mt-2 text-xs font-normal text-black">
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[100px] text-center">24/Jan/2024</span>
+                    <span class="w-[160px] text-center">Car For sale</span>
+                    <span class="w-[150px] text-center">Pending</span>
+                    <span class="px-3 ms-4 text-center bg-yellow-500 rounded py-[1px] text-[8px]">Pending</span>
+                </div>
+                <div class="border rounded py-1.5 px-2 flex  items-center mt-2 text-xs font-normal text-black">
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[100px] text-center">24/Jan/2024</span>
+                    <span class="w-[160px] text-center">Car For sale</span>
+                    <span class="w-[150px] text-center">Pending</span>
+                    <span class="px-3 ms-4 text-center bg-yellow-500 rounded py-[1px] text-[8px]">Pending</span>
+                </div>
+                <div class="border rounded py-1.5 px-2 flex  items-center mt-2 text-xs font-normal text-black">
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[75px]">#445</span>
+                    <span class="w-[100px] text-center">24/Jan/2024</span>
+                    <span class="w-[160px] text-center">Car For sale</span>
+                    <span class="w-[150px] text-center">Pending</span>
+                    <span class="px-3 ms-4 text-center bg-yellow-500 rounded py-[1px] text-[8px]">Pending</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 rounded-lg shadow-xl p-4 bg-white">
+            <h2 class="text-base font-bold mb-1 border-b pb-2">New Messages</h2>
+            <div class="h-[71px] rounded-lg bg-gray-500 mt-2 py-2 px-3">
+                <h3 class="font-semibold text-sm">Conversation ID: #0987</h3>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center mt-1 text-xs">
+                        <div class="border-r border-dark-500 pe-3">
+                            <p class="m-0">Catherine Powell / #21456</p>
+                            <small class="text-dark-700">Buyer</small>
+                        </div>
+                        <div class="ps-3">
+                            <p class="m-0">Catherine Powell / #21456</p>
+                            <small class="text-dark-700">Buyer</small>
+                        </div>
+                    </div>
+                    <p class="text-[8px]">05:15 pm</p>
+                </div>
+            </div>
+            <div class="h-[71px] rounded-lg bg-gray-500 mt-2 py-2 px-3">
+                <h3 class="font-semibold text-sm">Conversation ID: #0987</h3>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center mt-1 text-xs">
+                        <div class="border-r border-dark-500 pe-3">
+                            <p class="m-0">Catherine Powell / #21456</p>
+                            <small class="text-dark-700">Buyer</small>
+                        </div>
+                        <div class="ps-3">
+                            <p class="m-0">Catherine Powell / #21456</p>
+                            <small class="text-dark-700">Buyer</small>
+                        </div>
+                    </div>
+                    <p class="text-[8px]">05:15 pm</p>
+                </div>
+            </div>
+            <div class="h-[71px] rounded-lg bg-gray-500 mt-2 py-2 px-3">
+                <h3 class="font-semibold text-sm">Conversation ID: #0987</h3>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center mt-1 text-xs">
+                        <div class="border-r border-dark-500 pe-3">
+                            <p class="m-0">Catherine Powell / #21456</p>
+                            <small class="text-dark-700">Buyer</small>
+                        </div>
+                        <div class="ps-3">
+                            <p class="m-0">Catherine Powell / #21456</p>
+                            <small class="text-dark-700">Buyer</small>
+                        </div>
+                    </div>
+                    <p class="text-[8px]">05:15 pm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,124 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div class="flex gap-5" *ngIf="!loading">
+        <div class="flex-1">
+            <!-- <app-data-table [data]="list" [columns]="columns" tableHeading="Approve or Reject Ads Table" /> -->
+            <h2 class="font-bold text-2xl text-black mb-5">Banners</h2>
+            <app-data-table [data]="list" [columns]="columns" tableHeading="Existing Banners List Table"
+                (deleteData)="deleteElement($event)" (detailView)="detailView($event)" [isSearched]="false"
+                page_name="banner" [isEdit]="true" />
+
+        </div>
+        <form [formGroup]="bannerForm" (ngSubmit)="onSubmit()"
+            class="mt-[52px] mx-auto bg-white shadow-lg rounded-lg px-[10px] py-[60px] max-w-[452px] min-w-[452px]">
+            <div class="flex justify-around mb-5 text-sm bg-[#F3F3F4] rounded-[18px] h-12 w-[312px] mx-auto">
+                <button type="button"
+                    [ngClass]="activeTab == 'home'? 'bg-[#1E293B] shadow-blue text-white':'text-[#1E293B]'"
+                    class="px-4 py-2 rounded-[18px] flex-1" (click)="handleTab('home')">Homepage</button>
+                <button type="button" class="px-4 py-2 rounded-[18px] flex-1"
+                    [ngClass]="activeTab == 'product'? 'bg-[#1E293B] shadow-blue text-white':'text-[#1E293B]'"
+                    (click)="handleTab('product')">Product Page</button>
+            </div>
+            <div class="mb-5">
+                <select name="" id="" class="w-full focus-visible:outline-0 text-xl font-bold mb-5"
+                    formControlName="sequence">
+                    <option [defaultSelected]="true" disabled>Add New Banner</option>
+                    <option value="1">Banner 1</option>
+                    <option value="2">Banner 2</option>
+                    <option value="3">Banner 3</option>
+                </select>
+                <div *ngIf="bannerForm.get('sequence')?.invalid && (bannerForm.get('sequence')?.touched || bannerForm.get('sequence')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="bannerForm.get('sequence')?.errors?.['required']">Banner sequence is required.
+                    </div>
+                </div>
+            </div>
+            <!-- BANNER IMAGES -->
+            <div>
+                <label class="block text-gray-700 mb-5 text-base font-semibold">Add Image</label>
+                <div
+                    class="bg-[#414141] min-h-[164px] rounded-[10px] flex max-w-[423px] relative flex-wrap gap-1 overflow-hidden">
+                    <div *ngFor="let src of imageUrls" class="relative min-h-[130px] border border-green-600"  [ngClass]="src ? 'w-[32.4%] ' : 'w-[60px]'">
+                        <img [src]="src ? src : '/assets/img/property.png'" alt="image" class="h-full w-full">
+                    </div>
+                </div>
+                <div *ngIf="bannerForm.get('image')?.invalid && (bannerForm.get('image')?.touched || bannerForm.get('image')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="bannerForm.get('image')?.errors?.['required']">Banner image is required.
+                    </div>
+                </div>
+                <div class="flex justify-center mt-[19px]">
+                    <button type="button" class="h-[35px] w-[146px] border text-sm border-[#1E293B] rounded-[8px] me-5"
+                        (click)="handleDeleteImg()">Delete
+                        Image</button>
+                    <input type="file" id="image" class="hidden" (change)="handleFile($event)" formControlName="image"
+                        multiple>
+
+                    <label for="image"
+                        class="px-4 py-2 bg-[#1E293B] text-sm text-white rounded-[8px] flex items-center justify-between gap-3">
+                        <img src="/assets/img/property.png" alt="image" width="20" height="20">
+                        <span> Select Image</span>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="mt-4">
+                <label class="block text-gray-700 mb-2">Time</label>
+                <div class="flex justify-between gap-3 ">
+                    <div class="relative flex-1 border rounded-lg h-12 pe-2">
+                        <input type="date" formControlName="start_datetime"
+                            class="border-none w-full h-full focus-within:outline-none ps-3" id="start_datetime"
+                            [min]="today">
+                        <label for="start_datetime"
+                            class="absolute start-0 top-0 bottom-0 bg-white w-[80%] text-[10px] flex items-center px-4"
+                            [ngClass]="{
+                                'hidden': bannerForm.get('start_datetime')?.value
+                              }">Start
+                            Date</label>
+                        <div *ngIf="bannerForm.get('start_datetime')?.invalid && (bannerForm.get('start_datetime')?.touched || bannerForm.get('start_datetime')?.dirty)"
+                            class="text-red-500 text-sm">
+                            Start date is required.
+                        </div>
+                    </div>
+                    <div class="relative flex-1 border rounded-lg h-12 pe-2">
+                        <input type="date" class="border-0 w-full h-full focus-within:outline-none ps-3"
+                            formControlName="end_datetime" id="end_datetime" [min]="today">
+                        <label for="end_datetime"
+                            class="absolute start-0 top-0 bottom-0 bg-white w-[80%] text-[10px] rounded-xl flex items-center px-4"
+                            [ngClass]="{
+                                'hidden': bannerForm.get('end_datetime')?.value
+                              }">End
+                            Date</label>
+                        <div *ngIf="bannerForm.get('end_datetime')?.invalid && (bannerForm.get('end_datetime')?.touched || bannerForm.get('end_datetime')?.dirty)"
+                            class="text-red-500 text-sm">
+                            End date is required.
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="bannerForm.hasError('dateInvalid')" class="text-red-500 text-sm">
+                    End date must be greater than start date.
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <button type="submit" class="bg-[#414141] text-white h-[46px] w-[135px] rounded-[8px]">
+                    <ng-container *ngIf="isSubmitted; else saveBannerText">
+                        <app-loader class="flex justify-center items-center" [size]="6" />
+                    </ng-container>
+                    <ng-template #saveBannerText>Save Banner</ng-template>
+                </button>
+            </div>
+        </form>
+
+        <div *ngIf="viewData">
+            <modal-compnent [item]="viewData" (closeModal)="hideModal()" previewTitle="Report view" />
+        </div>
+        <div *ngIf="isDeleteModal">
+            <delete-modal-compnent [isDeleteModal]="isDeleteModal" (closeDeleteModal)="hideModal()"
+                (confirmDelete)="confirmDelete()" />
+        </div>
+    </div>
+</main>

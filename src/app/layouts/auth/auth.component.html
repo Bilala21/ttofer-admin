@@ -1,0 +1,71 @@
+<div class="flex justify-center items-center">
+    <div class="max-w-[570px] w-full bg-white rounded-lg shadow-lg">
+        <div class="p-8 w-full max-h-[730px] px-11 py-14">
+            <img src="assets/img/form/ttofer-logo.png" class="w-[90px] object-contain mx-auto mb-[70px]" alt="image" />
+            <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+                <div class="mb-5">
+                    <select name="" id="" formControlName="user_type" class="w-full focus-visible:outline-0">
+                        <option value="" selected>Select account type</option>
+                        <option value="admin">Login as Admin</option>
+                        <option value="sup_admin">Login as Super Admin</option>
+                    </select>
+                    <div *ngIf="authForm.get('user_type')?.invalid && (authForm.get('user_type')?.touched || authForm.get('user_type')?.dirty)"
+                    class="text-red-500 text-sm">Role is required.</div>
+
+                </div>
+                <div class="mb-5">
+                    <input type="email" id="email" formControlName="email"
+                        class="placeholder:text-base w-full rounded-[10px] border border-gray-[#EBEEF7] px-4 py-3 mt-[10px]"
+                        placeholder="Enter your user name" />
+                    <div *ngIf="authForm.get('email')?.invalid && (authForm.get('email')?.touched || authForm.get('email')?.dirty)"
+                        class="text-red-500 text-sm">
+                        <div *ngIf="authForm.get('email')?.errors?.['required']">Email is required.</div>
+                        <div *ngIf="authForm.get('email')?.errors?.['email']">Enter a valid email.</div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <input type="password" id="password" formControlName="password"
+                        class="w-full rounded-[10px] border border-gray-[#EBEEF7] px-4 py-3 mt-[10px]"
+                        placeholder="Password" />
+                    <div *ngIf="authForm.get('password')?.invalid && (authForm.get('password')?.touched || authForm.get('password')?.dirty)"
+                        class="text-red-500 text-sm">
+                        <div *ngIf="authForm.get('password')?.errors?.['required']">Password is required.</div>
+                        <div *ngIf="authForm.get('password')?.errors?.['minlength']">Password must be at least 8
+                            characters
+                            long.</div>
+                        <div *ngIf="authForm.get('password')?.errors?.['pattern']">
+                            Password must contain at least one uppercase letter, one lowercase letter, one number, and
+                            one
+                            special character.
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="mb-5">
+                    <input type="password" id="password" formControlName="password"
+                        class="w-full rounded-[10px] border border-gray-[#EBEEF7] px-4 py-3 mt-[10px]"
+                        placeholder="Password" />
+                    <div *ngIf="authForm.get('password')?.invalid && (authForm.get('password')?.touched || authForm.get('password')?.dirty)"
+                        class="text-red-500 text-sm">
+                        <div *ngIf="authForm.get('password')?.errors?.['required']">Password is required.</div>
+                        <div *ngIf="authForm.get('password')?.errors?.['min']">Amount must be at least 1.</div>
+                    </div>
+                </div> -->
+                <div class="h-6 mb-8 flex items-center justify-between">
+                    <span class="flex items-center relative">
+                        <input type="checkbox" id="rememberme" class="hidden checkmark" formControlName="rememberme">
+                        <label for="rememberme"
+                            class="w-6 h-6 shadow shadow-gray-600 flex items-center justify-center cursor-pointer relative"></label>
+                    </span>
+                    <a [routerLink]="['/forgot-password']">Forgot password?</a>
+                </div>
+                <button type="submit"
+                    class="w-full rounded-[10px] bg-[#414141] text-xl font-bold text-white hover:opacity-95 py-3">
+                    <ng-container *ngIf="is_submited; else addMemberText">
+                        <app-loader class="flex justify-center items-center" [size]="6" />
+                    </ng-container>
+                    <ng-template #addMemberText>Login</ng-template>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

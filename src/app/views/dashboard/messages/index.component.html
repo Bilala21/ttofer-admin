@@ -1,0 +1,106 @@
+<main class="bg-white w-full messages-pages absolute h-screen right-0 top-0 bottom-0 flex-1">
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div class=" ps-60 pt-[6rem] min-h-[100vh]" *ngIf="!loading">
+        <div class="flex justify-between bg-white relative z-10">
+            <div class="min-w-[475px] max-w-[475px] flex items-center flex-wrap shadow-sm ps-5 pb-4">
+                <div class="w-full pe-5">
+                    <h2 class="text-2xl w-full pt-3 pb-2 border-b mb-[14px]">Chat</h2>
+                </div>
+                <div class="ms-auto pe-4 w-full">
+                    <div
+                        class="w-full flex items-center h-11 gap-3 justify-between overflow-hidden bg-[#FFD33C4A] px-3 rounded-lg">
+                        <button type="button"><img src="assets/img/shared/search.png" alt="image" width="20"
+                                height="20"></button>
+                        <input type="text"
+                            class="h-full bg-transparent text-dark-500 placeholder:text-dark-500 flex-1 px-3 focus-visible:outline-none text-xs"
+                            placeholder="Search by Conversation ID, seller ID, user ID"
+                            [formControl]="conversationSearch">
+                    </div>
+                    <div class="border-b mt-4"></div>
+                </div>
+            </div>            
+            <div class="flex-1 flex justify-between msg-top-right relative items-center px-5 h-[120px]">
+                <div class="items-center min-w-[70%]" [ngClass]="showMessageSearch?'hidden':'flex'">
+                    <div class="border-e border-[rgba(20, 18, 18, 0.6)] pe-5 ">
+                        <p class="text-base text-dark-500">{{buyerAndSeller?.buyer}}</p>
+                        <small class="block text-sm text-dark-500">Buyer</small>
+                    </div>
+                    <div class="ps-5 flex-1">
+                        <p class="text-base text-dark-500">{{buyerAndSeller?.seller}}</p>
+                        <small class="block text-sm text-dark-500">Seller</small>
+                    </div>
+                </div>
+                <div class="flex-1 flex items-center"
+                    [ngClass]="showMessageSearch?'justify-between border rounded-lg pe-3':' justify-end'">
+                    <input type="text"
+                        class=" bg-transparent py-3 text-[#4141441] text-base placeholder:text-[#4141441] flex-1 px-3 focus-visible:outline-none"
+                        [ngClass]="showMessageSearch?'block me-4':'hidden'" placeholder="Search within chat"
+                        [formControl]="messageSearch">
+                    <img src="assets/img/shared/search.png" alt="search" class="w-6 h-6 cursor-pointer"
+                        (click)="handleMessageSearch()" *ngIf="!showMessageSearch">
+                    <span class="text-[40px] text-gray-500 cursor-pointer max-h-[50px] relative top-[-5px]"
+                        *ngIf="showMessageSearch" (click)="handleMessageSearch()">&#215;</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-between h-screen">
+            <div class="pe-3 min-w-[475px] scrollable overflow-y-auto messageh pb-8 pt-3 ps-5 shadow-sm"
+                *ngIf="conversations?.length">
+                <a *ngFor="let conversation of conversations; let i=index" [routerLink]="['/dashboard/messages']"
+                    [queryParams]="{id: conversation.conversation_id}"
+                    class="h-[71px] rounded-lg block  mt-2 py-2 px-3 cursor-pointer relative"
+                    [ngClass]="conversationId== conversation.conversation_id || conversationId == i?'active-item':'border'"
+                    (click)="handleConversation(conversation)">
+                    <message [conversation]="conversation"></message>
+                </a>
+            </div>
+            <div *ngIf="!conversations?.length" class="pe-3 min-w-[475px] scrollable overflow-y-auto messageh shadow-sm text-center pt-[20vh] text-gray-500">No
+                data found.
+            </div>
+            <div *ngIf="chatLoading" class="mx-auto pt-[20vh]">
+                <app-loader [size]="6" />
+            </div>
+            <div class="pt-10 scrollable overflow-y-auto messageh flex-1" *ngIf="messages?.length && !chatLoading">
+                <div class="px-5 flex flex-col">
+                    <div class="w-full" *ngFor="let message of messages; let i = index">
+                        <!-- BUYER MESSAGES -->
+                        <div class="flex flex-wrap justify-start mb-4" *ngIf="message?.buyer_id === message?.sender_id">
+                            <div class=" text-sm max-w-[70%] w-full">
+                                <span *ngIf="message?.message"
+                                    class="block bg-gray-400 text-black p-2 rounded-xl w-fit">{{message?.message}}
+                                </span>
+                                <img src={{message?.file}} alt="image" *ngIf="message?.file"
+                                    class="max-w-[300px] w-full max-h-[200px] h-auto object-cover"
+                                    (click)="handleImagePreview(message?.file)">
+                            </div>
+                            <p class="text-left text-xs mt-1 w-full">{{dateTimeFormat(message?.created_at,"HH:MM A")}}
+                            </p>
+                        </div>
+                        <!-- SELLER MESSAGES -->
+                        <div class="flex flex-wrap justify-end mb-4" *ngIf="message?.seller_id === message?.sender_id">
+                            <div class="max-w-[70%] w-full flex items-center justify-end">
+                                <img src="assets/img/shared/checkmark.png" alt="checkmark"
+                                    *ngIf="message?.status =='read'">
+                                <span *ngIf="message?.message"
+                                    class="block p-2 rounded-xl bg-dark-500 text-sm text-white ms-3">{{message?.message}}</span>
+                                <img src={{message?.file}} alt="image" *ngIf="message?.file"
+                                    class="max-w-[300px] w-full max-h-[200px] h-auto object-cover"
+                                    (click)="handleImagePreview(message?.file)">
+                            </div>
+                            <p class="text-right text-xs mt-1 w-full">{{dateTimeFormat(message?.created_at,"HH:MM A")}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!messages?.length && !chatLoading"
+                class="text-center pt-[20vh] text-gray-500 ng-star-inserted flex-1">No data found.
+            </div>
+        </div>
+    </div>
+    <div *ngIf="viewData" class="relative z-[99999] messages-modal">
+        <modal-compnent [item]="viewData" (closeModal)="hideModal()" />
+    </div>
+</main>

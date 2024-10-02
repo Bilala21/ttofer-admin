@@ -1,0 +1,83 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div *ngIf="!loading">
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+            <div class="bg-dark-500 h-full min-h-[241px] max-h-[242px] p-[18px] rounded-lg shadow-lg text-white">
+                <div class="flex items-center gap-2 flex-col justify-center h-full" *ngIf="!item?.img?.length">
+                    <span><img src="assets/img/property.png" alt="imag" class="w-[70px] h-[70px]"></span>
+                    <span class="xl:text-xl lg:text-base font-bold">Ad Image</span>
+                </div>
+                <img *ngIf="item?.img?.length" src={{item?.img?.[0]?.src}} alt="image" class="h-full object-contain w-full">
+            </div>
+            <div class="bg-gray-500 h-full min-h-[241px] p-[18px] rounded-lg shadow-lg">
+                <div class="flex items-center gap-2 flex-col justify-center h-full" *ngIf="!item?.video?.length">
+                    <span><img src="assets/img/video.png" alt="imag" class="w-[70px] h-[70px]"></span>
+                    <span class="xl:text-2xl lg:text-base font-bold">Ad Video</span>
+                </div>
+                <div *ngIf="item?.video?.length">
+                    <video src=""></video>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 rounded-lg shadow-xl p-4 bg-white mt-5 text-sm ">
+            <div class="flex mt-2 items-center justify-between border-b pb-2">
+                <p class="font-semibold text-[#939699]">AD Id</p>
+                <p class="text-[#939699]">{{item?.id}}</p>
+            </div>
+            <div class="flex mt-2 items-center justify-between border-b pb-2">
+                <p class="font-semibold text-[#939699]">Title</p>
+                <p class="text-[#939699]">{{item?.title}}</p>
+            </div>
+            <div class="flex mt-2 items-center justify-between border-b pb-2">
+                <p class="font-semibold text-[#939699]">User id</p>
+                <p class="text-[#939699]">{{item?.user_id}}</p>
+            </div>
+            <div class="flex mt-2 items-center justify-between border-b pb-2">
+                <p class="font-semibold text-[#939699]">Category</p>
+                <p class="text-[#939699]">{{item?.category}}</p>
+            </div>
+            <div class="flex mt-2 items-center justify-between border-b pb-2">
+                <p class="font-semibold text-[#939699]">Posting date</p>
+                <p class="text-[#939699]">{{item?.posting_date}}</p>
+            </div>
+            <div class="flex mt-2 items-center justify-between border-b pb-2">
+                <p class="font-semibold text-[#939699]">Status</p>
+                <p class="text-[#939699]">{{item?.status? "Active":"Inactive"}}</p>
+            </div>
+            <div class="flex mt-2 items-center justify-between border-b pb-2">
+                <p class="font-semibold text-[#939699]">User status</p>
+                <p class="text-[#939699]">{{apId?"Varified" : "Un-varified"}}</p>
+            </div>
+            <div class="flex mt-2 items-center justify-between border-b pb-2">
+                <p class="font-bold text-[#939699]">Actions</p>
+                <div class="flex items-center gap-3">
+                    <button class="bg-gray-600 text-white px-8 py-2 text-sm h-full rounded-lg"
+                        (click)="rejectAd(item?.id)">Reject</button>
+                    <button class="bg-yellow-500 px-8 py-2 text-sm h-full rounded-lg"
+                        (click)="approvedAd(item?.id)">Approve</button>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p class="font-semibold text-[#939699]">Optional</p>
+                <textarea name="comment" id="comment" placeholder="Add a Comment"
+                    class="border p-3 w-full rounded-lg text-[#939699]" rows="5"
+                    #commentInput>{{item?.description}}</textarea>
+            </div>
+            <div class="flex items-center justify-end gap-3 mt-3">
+                <button type="button" (click)="addComment(commentInput.value,item)"
+                    class="bg-gray-600 text-white px-8 py-2 text-sm rounded-lg border border-gray-600">
+                    <ng-container *ngIf="is_submited; else add">
+                        <app-loader class="flex justify-center items-center" [size]="6" />
+                    </ng-container>
+                    <ng-template #add>Add</ng-template>
+                </button>
+                <a routerLink="/dashboard/ads/approve-or-reje" class="border-gray-600 border px-8 py-2 text-sm rounded-lg hover:bg-blue-500 hover:text-white hover:border-blue-500">Cancle</a>
+            </div>
+
+        </div>
+    </div>
+
+</main>

@@ -1,0 +1,10 @@
+<nav>
+  <div class="flex items-center gap-5 text-xl mb-7">
+    <img src="assets/img/shared/arrow-left2.png" alt="arrow" width="30" class="me-3">
+    <a routerLink="/dashboard" *ngIf="breadCrumbData?.subTitle">Dashboard</a>
+    <img src="assets/img/shared/arrow-left.png" alt="arrow" width="20" *ngIf="breadCrumbData?.title && breadCrumbData?.subTitle">
+    <span>{{breadCrumbData?.title}}</span>
+    <img src="assets/img/shared/arrow-left.png" alt="arrow" width="20" *ngIf="breadCrumbData?.subTitle">
+    <span> {{breadCrumbData?.subTitle}}</span>
+  </div>
+</nav>

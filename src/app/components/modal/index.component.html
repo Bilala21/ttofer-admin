@@ -1,0 +1,62 @@
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" *ngIf="item">
+  <div *ngIf="!item?.isIMage" class="bg-white py-2 px-3 rounded-xl shadow-lg w-full max-w-[600px]">
+    <div class="flex mb-1 items-center justify-between">
+      <h2 class="mb-4 font-bold text-2xl">{{ previewTitle }}</h2>
+      <button (click)="hideModal()">
+        <img src="assets/img/shared/close-circle.png" alt="close" width="40" height="40">
+      </button>
+    </div>
+
+    <div class="text-gray-300 flex flex-wrap modal-image">
+      <div *ngFor="let key of keys" class="flex py-1 items-center justify-between text-base border-b w-full"
+        [ngClass]="key">
+        <!-- Check if key is 'img' and the value exists -->
+        <ng-container *ngIf="key === 'img' && item[key]">
+          <img [src]="item[key]" alt="image" class="mx-auto">
+        </ng-container>
+
+        <!-- Render other content only if key is not 'flag' and content exists -->
+        <ng-container *ngIf="key !== 'img' && key !== 'flag' && item[key]">
+          <div class="flex items-center justify-between w-full">
+            <p class="capitalize">{{ key.replaceAll('_', ' ') }}</p>
+            <p>{{ item[key] }}</p>
+          </div>
+        </ng-container>
+
+        <!-- Handle 'flag' key -->
+        <ng-container *ngIf="key === 'flag'">
+          <div class="flex items-center justify-between w-full">
+            <p>Action buttons</p>
+            <div class="flex items-center">
+              <button class="flex items-center bg-white rounded px-2 py-1 me-6 whitespace-nowrap">
+                Mark as Resolved
+                <span class="flex items-center gap-x-1 ms-2">
+                  <input type="checkbox" id="Resolved{{ item?.id }}" class="hidden checkmark"
+                    (change)="changeStatus(item?.id)">
+                  <label for="Resolved{{ item?.id }}"
+                    class="w-5 h-5 border-2 border-gray-600 rounded cursor-pointer"></label>
+                </span>
+              </button>
+              <button class="flex items-center bg-white rounded  py-1 whitespace-nowrap">
+                Mark as Revived
+                <span class="flex items-center gap-x-1 ms-2">
+                  <input type="checkbox" id="revived{{ item?.id }}" class="hidden checkmark"
+                    (change)="changeStatus(item?.id)">
+                  <label for="revived{{ item?.id }}"
+                    class="w-5 h-5 border-2 border-gray-600 rounded cursor-pointer"></label>
+                </span>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- Banner View -->
+  <div *ngIf="item?.isIMage" (click)="hideModal()" class="w-full">
+    <div class="h-[90vh] w-[95vw] mx-auto">
+      <img [src]="item?.img" alt="banner image" class="object-scale-down w-full h-full rounded-md">
+    </div>
+  </div>
+</div>

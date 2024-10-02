@@ -1,0 +1,47 @@
+<main class="-ms-5 -mt-5 relative z-10 border-t">
+    <div class="flex items-center gap-3 bg-white ps-14 py-5">
+        <img src="assets/img/money-add.png" alt="image" width="40" height="40">
+        <h2 class="text-xl text-gray-600">Payment</h2>
+    </div>
+
+    <div class="bg-white h-screen">
+        <form class="max-w-[700px] mx-auto pt-[120px]" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+            <div
+                class="h-12 focus-visible:outline-none bg-transparent flex items-center w-full relative text-sm rounded-2xl border border-gray-300 px-4">
+                <input type="checkbox" id="amount" class="hidden payment" formControlName="checked">
+                <label for="amount" class="text-base font-semibold text-dark-800 flex items-center"
+                    id="p">Payment</label>
+            </div>
+            <div *ngIf="paymentForm.get('checked')?.invalid && (paymentForm.get('checked')?.touched || paymentForm.get('checked')?.dirty)"
+                class="text-red-500 text-sm">
+                <div *ngIf="paymentForm.get('checked')?.errors?.['required']">
+                    checked is required.
+                </div>
+            </div>
+
+
+            <div class="my-7">
+                <label for="amount" class="mb-2 block text-base font-semibold text-dark-700">Posting Payment</label>
+                <input type="text" id="amount" formControlName="amount" placeholder="Enter Payment amount"
+                    class="h-12 focus-visible:outline-none bg-transparent w-full text-sm rounded-2xl border border-gray-300 px-4" />
+                <div *ngIf="paymentForm.get('amount')?.invalid && (paymentForm.get('amount')?.touched || paymentForm.get('amount')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="paymentForm.get('amount')?.errors?.['required']">Amount is required.</div>
+                    <div *ngIf="paymentForm.get('amount')?.errors?.['min']">Amount must be at least 1.</div>
+                    <div *ngIf="paymentForm.get('amount')?.errors?.['max']">Amount cannot exceed 100000.</div>
+                    <div *ngIf="paymentForm.get('amount')?.errors?.['pattern']">Amount must be a number.</div>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button type="submit"
+                    class="rounded-lg px-5 py-3 bg-[#414141] text-base min-w-[141px] text-white hover:opacity-95">
+                    <ng-container *ngIf="is_submited; else addMemberText">
+                        <app-loader class="flex justify-center items-center" [size]="6"></app-loader>
+                    </ng-container>
+                    <ng-template #addMemberText> Save Payment </ng-template>
+                </button>
+            </div>
+        </form>
+    </div>
+</main>

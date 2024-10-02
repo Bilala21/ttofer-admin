@@ -1,0 +1,19 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <div class="loader-container" *ngIf="loading">
+        <app-loader [size]="10" />
+    </div>
+    <div *ngIf="!loading">
+        <app-data-table [data]="list" [columns]="columns" tableHeading="Approve or Reject Ads Table"
+            searchPlaceholder="Search by ad title, user ID, or ad ID" pageTitle="Approve or Reject Ads"
+            (searchUsers)="searchFillter($event)" (deleteData)="deleteElement($event)" (detailView)="detailView($event)"
+            searchBnText="Delete Selected Ads" page_name="rejectAd" />
+    </div>
+    <div *ngIf="viewData">
+        <modal-compnent [item]="viewData" (closeModal)="hideModal()" previewTitle="Approve Or Reject Ad View" />
+    </div>
+    <div *ngIf="isDeleteModal">
+        <delete-modal-compnent [isDeleteModal]="isDeleteModal" (closeDeleteModal)="hideModal()"
+            (confirmDelete)="confirmDelete()" />
+    </div>
+</main>

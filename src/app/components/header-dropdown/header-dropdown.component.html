@@ -1,0 +1,18 @@
+<ul
+    class=" absolute right-0 top-11 min-w-[250px] border-t border-2 max-h-[300px] shadow-md bg-white dropdown overflow-y-auto">
+    @for (item of data?.data; track $index) {
+    @if (field(item)) {
+    <li (click)="handleClick()" class="block border-b text-xs px-2 py-2 hover:bg-[#E1FFF7]">
+        {{field(item)}}
+    </li>
+    <li *ngIf="$index == 9" class="icon">
+        <button type="button"
+            class="flex items-center justify-center border-b px-2 py-2 hover:bg-blue-600 icon text-white bg-blue-500 uppercase w-full"
+            (click)="handleLoadMore(data?.current_page)">
+            <app-loader *ngIf="loadMore" [size]="5" />
+            <span class="icon" *ngIf="!loadMore">Load more</span>
+        </button>
+    </li>
+    }
+    }
+</ul>

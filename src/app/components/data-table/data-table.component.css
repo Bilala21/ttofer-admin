@@ -1,0 +1,47 @@
+/* DATA TABLE */
+.mat-mdc-table {
+    background: transparent !important;
+}
+
+.mat-mdc-header-row {
+    height: auto !important;
+}
+
+.mat-mdc-header-cell {
+    border-bottom-color: #e5e7eb !important;
+    /* padding:4px 16px !important */
+}
+
+.mdc-data-table__row:last-child,
+.mat-mdc-cell {
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+td:first-child {
+    padding-left: 12px !important;
+}
+tr td:first-child span:first-child {
+   border-top-left-radius: 12px;
+   border-bottom-left-radius: 12px;
+}
+.users .notavail,
+.ads .notavail,.rejectAd .notavail{
+    display: none;
+}
+
+td:last-child {
+    padding-right: 12px !important;
+}
+
+.mat-column-actions {
+    text-align: right;
+}
+
+
+table #img {
+    width: 160px;
+}
+
+table td#email {
+    /* max-width: 110px; */
+}
