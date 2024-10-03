@@ -13,7 +13,6 @@ import { UsersComponent } from "./views/dashboard/users/users.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { AddNewMemberComponent } from "./components/add-new-member/add-new-member.component";
 import { SearchFromComponent } from "./components/search-form/search-from.component";
-import { PaginationComponent } from "./components/pagination/pagination.component";
 import { VarifiedUsersComponent } from "./views/dashboard/users/varified/varified-users.component";
 import { BreadcrumbComponent } from "./components/breacrumb/breadcrumb.component";
 import { RegisterUserComponent } from "./views/dashboard/users/todayRegistration/users.component";
@@ -40,6 +39,9 @@ import { HeaderDropdownComponent } from "./components/header-dropdown/header-dro
 import { CommonModule } from "@angular/common";
 import { TtofferGiftsComponent } from "./views/dashboard/ttoffer-gitfs/index.component";
 import { CreateTtofferGiftComponent } from "./views/dashboard/ttoffer-gitfs/create/index.component";
+import { NotificationsComponent } from "./views/dashboard/notifications/notifications.component";
+import { CreateProductComponent } from "./views/dashboard/ads/create/create-product.component";
+import { PaymentHistoryComponent } from "./views/dashboard/payment-history/payment-history.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +55,6 @@ import { CreateTtofferGiftComponent } from "./views/dashboard/ttoffer-gitfs/crea
     HeaderComponent,
     AddNewMemberComponent,
     SearchFromComponent,
-    PaginationComponent,
     VarifiedUsersComponent,
     BreadcrumbComponent,
     RegisterUserComponent,
@@ -74,6 +75,9 @@ import { CreateTtofferGiftComponent } from "./views/dashboard/ttoffer-gitfs/crea
     HeaderDropdownComponent,
     TtofferGiftsComponent,
     CreateTtofferGiftComponent,
+    NotificationsComponent,
+    CreateProductComponent,
+    PaymentHistoryComponent,
     
   ],
   imports: [

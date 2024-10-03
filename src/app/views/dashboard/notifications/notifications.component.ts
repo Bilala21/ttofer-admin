@@ -9,7 +9,7 @@ export class NotificationsComponent implements OnInit {
   constructor(private notificationService: NotificationService) { }
   title = "Notifications"
   loading: boolean = true
-  list: any = []
+  data: any = []
 
   isDeleteModal: boolean = false
 
@@ -54,7 +54,7 @@ export class NotificationsComponent implements OnInit {
   getNotifications = (url: string) => {
     this.notificationService.getNotification(url).subscribe({
       next: (data: any) => {
-        console.log(data)
+        this.data=data?.data
         this.loading=false
       },
       error: (error: any) => console.error("Error:", error),

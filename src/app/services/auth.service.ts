@@ -5,14 +5,13 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    // private baseUrl: string = 'https://ttoffer.com/backend/public/api';
+    private baseUrl: string = 'https://ttoffer.com/backend/public/api';
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(req.url);
         const token = localStorage.getItem('authToken');
         if (token) {
             const cloned = req.clone({
                 headers: req.headers.set('Authorization', `Bearer ${token}`),
-                url: `${environment.apiBaseUrl}${req.url}`,
+                url: `${this.baseUrl}${req.url}`,
             });
             return next.handle(cloned);
         } else {

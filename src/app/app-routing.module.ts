@@ -23,6 +23,8 @@ import { AdDetailsComponent } from "./views/dashboard/ads/details/ad-detail.comp
 import { TtofferGiftsComponent } from "./views/dashboard/ttoffer-gitfs/index.component";
 import { CreateTtofferGiftComponent } from "./views/dashboard/ttoffer-gitfs/create/index.component";
 import { NotificationsComponent } from "./views/dashboard/notifications/notifications.component";
+import { CreateProductComponent } from "./views/dashboard/ads/create/create-product.component";
+import { PaymentHistoryComponent } from "./views/dashboard/payment-history/payment-history.component";
 
 
 const routes: Routes = [
@@ -31,7 +33,7 @@ const routes: Routes = [
   {
     path: "dashboard",
     component: AdminComponent,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     children: [
       { path: "", component: DashboardComponent },
       { path: "users", component: UsersComponent },
@@ -41,6 +43,7 @@ const routes: Routes = [
       { path: "ads/approve-or-reje", component: ApprovedOrRejectComponent },
       { path: "ads/history", component: AdsHistoryComponent },
       { path: "ads/details", component: AdDetailsComponent },
+      { path: "ads/create", component: CreateProductComponent },
       { path: "statistics/reports", component: ReportsComponent },
       { path: "statistics/team", component: TeamMngComponent },
       { path: "statistics/banners", component: BannerComponent },
@@ -50,6 +53,7 @@ const routes: Routes = [
       { path: "ttoffer-gifts", component: TtofferGiftsComponent },
       { path: "ttoffer-gift/create", component: CreateTtofferGiftComponent },
       { path: "notifications", component: NotificationsComponent },
+      { path: "payment-history", component: PaymentHistoryComponent },
       { path: "logout", component: UsersComponent },
       { path: "**", component: NotfoundComponent },
 

@@ -1,11 +1,12 @@
 <main class="pe-5 ps-1 pt-4 mb-10">
-    <breadcrumb [breadCrumbData]="breadCrumbData" />
-    <p class="font-bold text-[18px] text-black mb-4"> Add New Ttoffer Gift</p>
+    <breadcrumb [breadCrumbData]="{ subTitle: item ? 'Edit Ttoffer gift card' : 'Add Ttoffer gift card' }" />
+
+    <p class="font-bold text-[18px] text-black mb-4">{{item?"Edit Ttoffer Gift Card":"Add New Ttoffer Gift Card"}}</p>
     <div>
         <form [formGroup]="giftForm" (ngSubmit)="onSubmit()">
             <fieldset class="flex flex-wrap bg-white pt-5 rounded shadow-xl px-5 gap-x-[2%] pb-5">
                 <h3 class="w-full mb-5 font-bold">Form</h3>
-                <div class="mb-4 w-[49%]">
+                <!-- <div class="mb-4 w-[49%] hidden">
                     <label for="name" class="mb-1 text-base font-medium text-dark-700">Gift Name</label>
                     <input type="text" id="name" formControlName="name"
                         class="h-11 focus-visible:outline-none bg-transparent w-full text-sm rounded-md border border-gray-300 px-2 text-[#9a9a9a]"
@@ -14,9 +15,9 @@
                         class="text-red-500 text-sm">
                         <div *ngIf="giftForm.get('name')?.errors?.['required']">Name is required.</div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="mb-4 w-[49%]">
+                <div class="mb-4 w-full">
                     <label for="name" class="mb-1 text-base font-medium text-dark-700">Gift Value</label>
                     <input type="text" id="giftValue" formControlName="giftValue"
                         class="h-11 focus-visible:outline-none bg-transparent w-full text-sm rounded-md border border-gray-300 px-2 text-[#9a9a9a]"
@@ -27,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="mb-4 w-[49%] custom-select-container relative inline-block">
+                <!-- <div class="mb-4 w-[49%] custom-select-container relative inline-block hidden">
                     <label for="giftType" class="mb-1 text-base font-medium text-dark-700">Gift Type</label>
                     <select id="giftType"
                         class="h-11 focus-visible:outline-none bg-transparent w-full text-sm rounded-md border border-gray-300 ps-2 text-[#9a9a9a]"
@@ -43,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="mb-4 w-[49%]">
+                <div class="mb-4 w-[49%] hidden">
                     <label for="giftCode" class="mb-1 text-base font-medium text-dark-700">Gift Code</label>
                     <input type="text" id="giftCode" formControlName="giftCode"
                         class="h-11 focus-visible:outline-none bg-transparent w-full text-sm rounded-md border border-gray-300 px-2 text-[#9a9a9a]"
@@ -54,7 +55,7 @@
                     </div>
                 </div>
 
-                <div class="mb-4 w-[49%]">
+                <div class="mb-4 w-[49%] hidden">
                     <label for="startDate" class="mb-1 text-base font-medium text-dark-700">Gift Start Date</label>
                     <input type="datetime-local" id="startDate" formControlName="startDate"
                         class="h-11 focus-visible:outline-none bg-transparent w-full text-sm rounded-md border border-gray-300 px-2 text-[#9a9a9a]" />
@@ -65,7 +66,7 @@
                     </div>
                 </div>
 
-                <div class="mb-4 w-[49%]">
+                <div class="mb-4 w-[49%] hidden">
                     <label for="endDate" class="mb-1 text-base font-medium text-dark-700">Gift End Date</label>
                     <input type="datetime-local" id="endDate" formControlName="endDate"
                         class="h-11 focus-visible:outline-none bg-transparent w-full text-sm rounded-md border border-gray-300 px-2 text-[#9a9a9a]" />
@@ -73,15 +74,15 @@
                         class="text-red-500 text-sm">
                         <div *ngIf="giftForm.get('endDate')?.errors?.['required']">Gift end date is required.</div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- form button -->
                 <div class="text-center ms-auto mt-6 text-base">
                     <button type="submit" class="px-8 py-2.5 rounded-md bg-[#414141] text-white hover:opacity-95">
-                        <ng-container *ngIf="is_submited; else addMemberText">
+                        <ng-container *ngIf="isSubmitted; else addMemberText">
                             <app-loader class="flex justify-center items-center" [size]="6" />
                         </ng-container>
-                        <ng-template #addMemberText>Submit</ng-template>
+                        <ng-template #addMemberText>{{!item?"Update":"Submit"}}</ng-template>
                     </button>
                     <a routerLink="/dashboard/ttoffer-gifts"
                         class="border-gray-600 border px-8 ms-3 py-[11px] rounded-md hover:bg-blue-500 hover:text-white hover:border-blue-500">

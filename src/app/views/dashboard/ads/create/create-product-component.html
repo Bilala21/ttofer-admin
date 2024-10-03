@@ -1,0 +1,264 @@
+<main class="pe-5 ps-1 pt-4 mb-10">
+    <breadcrumb [breadCrumbData]="breadCrumbData" />
+    <p class="font-bold text-[18px] text-black mb-4"> Add Product</p>
+    <!-- <a routerLink="/dashboard/ads/create"
+        class="flex items-center gap-3 bg-blue-500 text-white w-fit px-4 py-3 rounded-md ms-auto mb-5 hover:opacity-80">
+        Add Product
+    </a> -->
+
+    <div>
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()"
+            class="bg-white shadow-lg rounded-lg px-[60px] py-10 flex flex-wrap justify-between">
+            <!-- PRODUCT IMAGE -->
+            <div class="w-[49%]">
+                <label class="mb-1 text-base font-medium text-dark-700">Ad Image<span
+                        class="text-red-500">*</span></label>
+                <div
+                    class="bg-[#414141] border h-[200px] rounded-[10px] flex justify-center items-center overflow-hidden">
+                    <img [src]="imageSrc ? imageSrc : '/assets/img/property.png'" alt="image"
+                        class="{{imageSrc?'':'w-[70px]'}}">
+                </div>
+                <div *ngIf="postForm.get('image')?.invalid && (postForm.get('image')?.touched || postForm.get('image')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="postForm.get('image')?.errors?.['required']">Banner image is required.
+                    </div>
+                </div>
+                <div class="flex justify-end mt-[19px]">
+                    <button type="button"
+                        class="py-2.5 w-[146px] text-sm border border-gray-300 rounded-md me-5 duration-300 hover:bg-red-400 hover:border-red-400 hover:text-white"
+                        (click)="handleDeleteImg()">Delete
+                        Image</button>
+                    <input type="file" id="image" class="hidden" (change)="handleFile($event,'image')"
+                        formControlName="image">
+
+                    <label for="image"
+                        class="px-4 py-2.5 bg-[#1E293B] text-sm text-white rounded-md flex items-center justify-between gap-3 hover:opacity-80">
+                        <img src="/assets/img/property.png" alt="image" width="20" height="20">
+                        <span> Select Image</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- PRODUCT VIDEO -->
+            <div class="w-[49%]">
+                <label class="mb-1 text-base font-medium text-dark-700">Ad Video</label>
+                <div
+                    class="bg-[#414141] border h-[200px] rounded-[10px] flex justify-center relative items-center overflow-hidden">
+                    @if(videoSrc){
+                    <video controls class="absolute w-full h-full">
+                        <source [src]="videoSrc" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    }
+                    @else{
+                    <img [src]="videoSrc ? videoSrc : '/assets/img/property.png'" alt="image"
+                        class="{{videoSrc?'':'w-[70px]'}}">
+                    }
+                </div>
+
+                <div class="flex justify-end mt-[19px]">
+                    <button type="button"
+                        class="py-2.5 w-[146px] text-sm border border-gray-300 rounded-md me-5 duration-300 hover:bg-red-400 hover:border-red-400 hover:text-white"
+                        (click)="handleDeleteImg()">Delete
+                        Video</button>
+                    <input type="file" id="video" class="hidden" accept="video/*" (change)="handleFile($event,'video')"
+                        formControlName="video" />
+
+                    <label for="video"
+                        class="px-4 py-2.5 bg-[#1E293B] text-sm text-white rounded-md flex items-center justify-between gap-3 hover:opacity-80">
+                        <img src="/assets/img/property.png" alt="video" width="20" height="20">
+                        <span> Select Video</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4 mt-14">
+                <label for="title" class="mb-1 text-base font-medium text-dark-700">Title<span
+                        class="text-red-500">*</span></label>
+                <input type="text" formControlName="title"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-2.5 border-gray-300 text-[#9a9a9a]"
+                    id="title" placeholder="Title">
+                <div *ngIf="postForm.get('title')?.invalid && (postForm.get('title')?.touched || postForm.get('title')?.dirty)"
+                    class="text-red-500 text-sm">
+                    Title is required.
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4 mt-14 custom-select-container relative inline-block">
+                <label for="category" class="mb-1 text-base font-medium text-dark-700">Category <span
+                        class="text-red-500">*</span></label>
+                <select name="" id="category"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-3 border-gray-300 text-[#9a9a9a]"
+                    formControlName="category">
+                    <option [defaultSelected]="true" disabled>Select category</option>
+                    <option value="1">Banner 1</option>
+                </select>
+                <div *ngIf="postForm.get('category')?.invalid && (postForm.get('category')?.touched || postForm.get('category')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="postForm.get('category')?.errors?.['required']">category is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4">
+                <label for="price" class="mb-1 text-base font-medium text-dark-700">Price<span
+                        class="text-red-500">*</span></label>
+                <input type="text" formControlName="price"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-2.5 border-gray-300 text-[#9a9a9a]"
+                    id="price" placeholder="Price">
+                <div *ngIf="postForm.get('price')?.invalid && (postForm.get('price')?.touched || postForm.get('price')?.dirty)"
+                    class="text-red-500 text-sm">
+                    Price is required.
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4 custom-select-container relative inline-block">
+                <label for="sub_category" class="mb-1 text-base font-medium text-dark-700">Sub Category <span
+                        class="text-red-500">*</span></label>
+                <select id="sub_category"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-3 border-gray-300 text-[#9a9a9a]"
+                    formControlName="sub_category">
+                    <option [defaultSelected]="true" disabled>Select pricing category</option>
+                    <option value="1">Banner 1</option>
+                </select>
+                <div *ngIf="postForm.get('sub_category')?.invalid && (postForm.get('sub_category')?.touched || postForm.get('sub_category')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="postForm.get('sub_category')?.errors?.['required']">Sub category is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4 custom-select-container relative inline-block">
+                <label for="pricing_category" class="mb-1 text-base font-medium text-dark-700">Pricing Category<span
+                        class="text-red-500">*</span></label>
+                <select id="pricing_category"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-3 border-gray-300 text-[#9a9a9a]"
+                    formControlName="pricing_category">
+                    <option [defaultSelected]="true" disabled>Select pricing category</option>
+                    <option value="Fixed Price">Fixed Price</option>
+                    <option value="Auction">Auction</option>
+                    <option value="Sell to TTOffer">Sell to TTOffer</option>
+                </select>
+                <div *ngIf="postForm.get('pricing_category')?.invalid && (postForm.get('pricing_category')?.touched || postForm.get('pricing_category')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="postForm.get('pricing_category')?.errors?.['required']">Pricing category is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4 custom-select-container relative inline-block">
+                <label for="make" class="mb-1 text-base font-medium text-dark-700">Make<span
+                        class="text-red-500">*</span></label>
+                <select id="make"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-3 border-gray-300 text-[#9a9a9a]"
+                    formControlName="make">
+                    <option [defaultSelected]="true" disabled>Select maker</option>
+                    <option value="1">Banner 1</option>
+                </select>
+                <div *ngIf="postForm.get('make')?.invalid && (postForm.get('make')?.touched || postForm.get('make')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="postForm.get('make')?.errors?.['required']">Maker is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4">
+                <label for="mileage" class="mb-1 text-base font-medium text-dark-700">Mileage<span
+                        class="text-red-500">*</span></label>
+                <input type="text" formControlName="mileage"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-2.5 border-gray-300 text-[#9a9a9a]"
+                    id="mileage" placeholder="Mileage">
+                <div *ngIf="postForm.get('mileage')?.invalid && (postForm.get('mileage')?.touched || postForm.get('mileage')?.dirty)"
+                    class="text-red-500 text-sm">
+                    Mileage is required.
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4">
+                <label for="year" class="mb-1 text-base font-medium text-dark-700">Year<span
+                        class="text-red-500">*</span></label>
+                <input type="text" formControlName="year"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-2.5 border-gray-300 text-[#9a9a9a]"
+                    id="year" placeholder="Year">
+                <div *ngIf="postForm.get('year')?.invalid && (postForm.get('year')?.touched || postForm.get('year')?.dirty)"
+                    class="text-red-500 text-sm">
+                    Year is required.
+                </div>
+            </div>
+
+            <div class="w-[23.5%] mb-4 custom-select-container relative inline-block">
+                <label for="fuel_type" class="mb-1 text-base font-medium text-dark-700">Fuel Type<span
+                        class="text-red-500">*</span></label>
+                <select id="fuel_type"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-3 border-gray-300 text-[#9a9a9a]"
+                    formControlName="fuel_type">
+                    <option [defaultSelected]="true" disabled>Select fuel type</option>
+                    <option value="1">Banner 1</option>
+                </select>
+                <div *ngIf="postForm.get('fuel_type')?.invalid && (postForm.get('fuel_type')?.touched || postForm.get('fuel_type')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="postForm.get('fuel_type')?.errors?.['required']">Fuel type is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[23.5%] mb-4 custom-select-container relative inline-block">
+                <label for="condition" class="mb-1 text-base font-medium text-dark-700">Condition<span
+                        class="text-red-500">*</span></label>
+                <select id="condition"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-3 border-gray-300 text-[#9a9a9a]"
+                    formControlName="condition">
+                    <option [defaultSelected]="true" disabled>Select condition</option>
+                    <option value="1">Banner 1</option>
+                </select>
+                <div *ngIf="postForm.get('condition')?.invalid && (postForm.get('condition')?.touched || postForm.get('condition')?.dirty)"
+                    class="text-red-500 text-sm">
+                    <div *ngIf="postForm.get('condition')?.errors?.['required']">Condition is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[49%] mb-4">
+                <label for="location" class="mb-1 text-base font-medium text-dark-700">Location <span
+                        class="text-red-500">*</span></label>
+                <input type="text" formControlName="location"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-2.5 border-gray-300 text-[#9a9a9a]"
+                    id="location" placeholder="location">
+                <div *ngIf="postForm.get('location')?.invalid && (postForm.get('location')?.touched || postForm.get('location')?.dirty)"
+                    class="text-red-500 text-sm">
+                    Location is required.
+                </div>
+            </div>
+
+            <div class="w-full">
+                <label for="description" class="mb-1 text-base font-medium text-dark-700">Description</label>
+                <textarea id="description" rows="5" formControlName="description"
+                    class="border w-full rounded-md focus-visible:outline-0 px-2 py-2.5 border-gray-300 text-[#9a9a9a]"
+                    placeholder="Description"></textarea>
+            </div>
+
+            <div class="text-center ms-auto mt-6 text-base">
+                <button type="submit" class="px-8 py-2.5 rounded-md bg-[#414141] text-white hover:opacity-95">
+                    <ng-container *ngIf="isSubmitted; else addMemberText">
+                        <app-loader class="flex justify-center items-center" [size]="6" />
+                    </ng-container>
+                    <ng-template #addMemberText>{{item?"Update":"Submit"}}</ng-template>
+                </button>
+                <a routerLink="/dashboard/ttoffer-gifts"
+                    class="border-gray-600 border px-8 ms-3 py-[11px] rounded-md hover:bg-blue-500 hover:text-white hover:border-blue-500">
+                    Cancel
+                </a>
+            </div>
+
+            <!-- <button type="submit" class="bg-[#414141] px-10 py-2.5 rounded hover:opacity-80 ms-auto mt-4">
+                <ng-container *ngIf="isSubmitted; else postText">
+                    <app-loader class="flex justify-center items-center" [size]="6"></app-loader>
+                </ng-container>
+                <ng-template #postText>
+                    <span class="text-white">Post</span>
+                </ng-template>
+            </button> -->
+
+        </form>
+    </div>
+</main>

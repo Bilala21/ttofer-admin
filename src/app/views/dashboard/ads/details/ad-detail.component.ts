@@ -57,11 +57,10 @@ export class AdDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
-      const product_id: any = params.get('product_id');
+      const product_id: any = params.get('id');
       this.loading = true;
       this.adService.getAdById("product-detail", product_id).subscribe({
         next: (data: any) => {
-          console.log(data?.data?.user?.status);
           this.loading = false;
           this.apId = data?.data?.user?.status ? 1 : 0,
             this.item = {

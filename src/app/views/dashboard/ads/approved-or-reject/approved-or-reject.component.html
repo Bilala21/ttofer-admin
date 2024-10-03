@@ -7,7 +7,7 @@
         <app-data-table [data]="list" [columns]="columns" tableHeading="Approve or Reject Ads Table"
             searchPlaceholder="Search by ad title, user ID, or ad ID" pageTitle="Approve or Reject Ads"
             (searchUsers)="searchFillter($event)" (deleteData)="deleteElement($event)" (detailView)="detailView($event)"
-            searchBnText="Delete Selected Ads" page_name="rejectAd" />
+            searchBnText="Delete Selected Ads" page_name="rejectAd" url="/dashboard/ads/details"/>
     </div>
     <div *ngIf="viewData">
         <modal-compnent [item]="viewData" (closeModal)="hideModal()" previewTitle="Approve Or Reject Ad View" />

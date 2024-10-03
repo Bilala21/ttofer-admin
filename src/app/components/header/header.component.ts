@@ -84,8 +84,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getMessages("latest-messages");
-    this.getReports("reports");
-    this.getNotifications("unread/notifications");
+    // this.getMessages("latest-messages");
+    // this.getReports("reports");
+    // this.getNotifications("unread/notifications");
   }
 }

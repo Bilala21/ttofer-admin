@@ -19,96 +19,101 @@
     <h2 class="font-bold text-[18px] mb-4 ps-4">{{ tableHeading }}</h2>
 
     <!-- Check if dataSource is empty -->
-    <div *ngIf="data.length === 0" class="p-5 text-center text-gray-500">
+    <div *ngIf="data?.data.length === 0" class="p-5 text-center text-gray-500">
       No data found.
     </div>
 
     <!-- Table Content (Only display if dataSource is not empty) -->
-    <table mat-table *ngIf="data.length > 0" [dataSource]="dataSource" matSort>
 
-      <!-- Dynamic Column Definitions -->
-      <ng-container *ngFor="let column of columns; let i=index" [matColumnDef]="column.key">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-base font-semibold !pb-2">
-          {{ column.header }}
-        </th>
-        <td mat-cell *matCellDef="let element; let i = index" class="!text-sm !p-0" [id]="column.key">
-          <ng-container *ngIf="column.key === 'checkbox'">
-            <span class="bg-gray-500 flex items-center relative h-12 rounded-s-lg ps-3">
-              <input type="checkbox" id="checkbox{{element.id}}" class="hidden checkmark"
-                (change)="handleCheckbox(element.id)">
-              <label for="checkbox{{element.id}}"
-                class="w-5 h-5 border-2 border-gray-600 rounded-md flex items-center justify-center cursor-pointer relative"></label>
-            </span>
-          </ng-container>
-
-          <ng-container *ngIf="column.key === 'img'; else normalCell">
-            <span role="button" class="bg-gray-500 flex items-center relative h-12">
-              <img [src]="element[column.key]" alt="{{element.name}}" aria-label="images"
-                class="m-auto rounded-lg h-full w-full py-1">
-              <button
-                class="text-base rounded-lg border-none absolute start-0 right-0 !bg-[#00000033] overlay text-white px-2 h-10"
-                (click)="viewElement({img:element.img,banner:true})">
-                Preview image
-              </button>
-            </span>
-          </ng-container>
-
-          <ng-template #normalCell>
-            <ng-container *ngIf="element[column.key]; else emptyCell">
-              <span class="bg-gray-500 flex items-center h-12 px-4 my-2">{{ column.key === "id" ? "#" +
-                element[column.key] : element[column.key] }}</span>
-            </ng-container>
-            <ng-template #emptyCell>
-              <span class="bg-gray-500 flex items-center h-12 px-4 my-2 notavail">N/A</span>
-            </ng-template>
-          </ng-template>
-        </td>
-      </ng-container>
-
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element" class="text-sm !p-0 text-black">
-          <span class="bg-gray-500 rounded-e-lg flex items-center gap-x-1 h-12 justify-end pe-3">
-            <button class="flex items-center bg-gray-600 text-white px-3 rounded py-1 whitespace-nowrap"
-              *ngIf="isDetail" (click)="viewElement(element)">
-              View Details
-            </button>
-            <button class="flex items-center bg-white rounded ps-2 me-2 py-1 whitespace-nowrap" *ngIf="isMark">
-              Mark as Resolved
-              <span class="!bg-transparent flex items-center gap-x-1">
-                <input type="checkbox" id="mark{{element.id}}" class="hidden checkmark"
-                  (change)="handleMarkAsRead(element.id)">
-                <label for="mark{{element.id}}"
-                  class="w-5 h-5 border-2 border-gray-600 rounded-lg flex items-center ms-1 me-2 justify-center cursor-pointer relative"></label>
+    <div class="{{page_name=='banner'?'max-w-[767px] overflow-x-auto':''}}">
+      <table mat-table *ngIf="data?.data.length > 0" [dataSource]="dataSource" matSort class="!w-full !min-w-[1200px]">
+        <!-- Dynamic Column Definitions -->
+        <ng-container *ngFor="let column of columns; let i=index" [matColumnDef]="column.key">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-base font-semibold !pb-2">
+            {{ column.header }}
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" class="!text-sm !p-0" [id]="column.key">
+            <ng-container *ngIf="column.key === 'checkbox'">
+              <span class="bg-gray-500 flex items-center relative h-12 rounded-s-lg ps-3">
+                <input type="checkbox" id="checkbox{{element.id}}" class="hidden checkmark"
+                  (change)="handleCheckbox(element.id)">
+                <label for="checkbox{{element.id}}"
+                  class="w-5 h-5 border-2 border-gray-600 rounded-md flex items-center justify-center cursor-pointer relative"></label>
               </span>
-            </button>
-            <button class="bg-red-800 border rounded border-red-800" (click)="deleteElement(element.id)"
-              *ngIf="!isDetail">
-              <img src="assets/img/shared/delete.png" alt="delete" class="h-6 w-6 object-contain p-1">
-            </button>
-            <button class="border rounded "
-              [ngClass]="isEdit?'bg-blue-500 border-blue-500':'bg-dark-600 border-dark-600'"
-              (click)="viewElement(element)" *ngIf="(!isDetail && page_name !=='rejectAd')">
-              <img [src]="isEdit?'assets/img/shared/edit.png':'assets/img/shared/eye.png'" alt="eye"
-                class="h-6 w-6 p-0.5 object-contain" />
-            </button>
-            <a [routerLink]="['/dashboard/ads/details']" [queryParams]="{product_id:element.id}"
-              class="flex items-center gap-3 bg-dark-600 border rounded border-dark-600" *ngIf="page_name==='rejectAd'">
-              <img src="assets/img/shared/eye.png" alt="eye" class="h-6 w-6 p-0.5 object-contain">
-            </a>
-          </span>
-        </td>
-      </ng-container>
+            </ng-container>
 
-      <!-- Table Header and Row Definitions -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <ng-container *ngIf="column.key === 'img'; else normalCell">
+              <span role="button" class="bg-gray-500 flex items-center relative h-12">
+                <img [src]="element[column.key]" alt="{{element.name}}" aria-label="images"
+                  class="m-auto rounded-lg h-full w-full py-1">
+                <button
+                  class="text-base rounded-lg border-none absolute start-0 right-0 !bg-[#00000033] overlay text-white px-2 h-10"
+                  (click)="viewElement({img:element.img,banner:true})">
+                  Preview image
+                </button>
+              </span>
+            </ng-container>
 
-    </table>
+            <ng-template #normalCell>
+              <ng-container *ngIf="element[column.key]; else emptyCell">
+                <span class="bg-gray-500 flex items-center h-12 px-4 my-2">{{ column.key === "id" ? "#" +
+                  element[column.key] : element[column.key] }}</span>
+              </ng-container>
+              <ng-template #emptyCell>
+                <span class="bg-gray-500 flex items-center h-12 px-4 my-2 notavail">N/A</span>
+              </ng-template>
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element" class="text-sm !p-0 text-black">
+            <span class="bg-gray-500 rounded-e-lg flex items-center gap-x-1 h-12 justify-end pe-3">
+              <button class="flex items-center bg-gray-600 text-white px-3 rounded py-1 whitespace-nowrap"
+                *ngIf="isDetail" (click)="viewElement(element)">
+                View Details
+              </button>
+              <button class="flex items-center bg-white rounded ps-2 me-2 py-1 whitespace-nowrap" *ngIf="isMark">
+                Mark as Resolved
+                <span class="!bg-transparent flex items-center gap-x-1">
+                  <input type="checkbox" id="mark{{element.id}}" class="hidden checkmark"
+                    (change)="handleMarkAsRead(element.id)">
+                  <label for="mark{{element.id}}"
+                    class="w-5 h-5 border-2 border-gray-600 rounded-lg flex items-center ms-1 me-2 justify-center cursor-pointer relative"></label>
+                </span>
+              </button>
+              <button class="bg-red-800 border rounded border-red-800" (click)="deleteElement(element.id)"
+                *ngIf="!isDetail">
+                <img src="assets/img/shared/delete.png" alt="delete" class="h-6 w-6 object-contain p-1">
+              </button>
+              <button class="border rounded"
+                [ngClass]="isEdit ? 'bg-blue-500 border-blue-500' : 'bg-dark-600 border-dark-600'"
+                (click)="viewElement(element)" *ngIf="(!isDetail && page_name !== 'rejectAd' && page_name !== 'gifts')">
+                <img [src]="isEdit ? 'assets/img/shared/edit.png' : 'assets/img/shared/eye.png'" alt="eye"
+                  class="h-6 w-6 p-0.5 object-contain" />
+              </button>
+              <a [routerLink]="[url]" [queryParams]="{id: element.id}" class="flex items-center gap-3 border rounded"
+                *ngIf="url" [ngClass]="isEdit ? 'bg-blue-500 border-blue-500' : 'bg-dark-600 border-dark-600'">
+                <img [src]="isEdit ? 'assets/img/shared/edit.png' : 'assets/img/shared/eye.png'" alt="eye"
+                  class="h-6 w-6 p-0.5 object-contain" />
+              </a>
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Table Header and Row Definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
 
     <!-- Paginator -->
-    <mat-paginator [pageSizeOptions]="[5, 10]" *ngIf="data.length > 0" showFirstLastButtons
-      class="rounded-b-md"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[10,50]" [pageSize]="10" [length]="100" 
+      class="rounded-b-md"
+       (page)="onPageChange($event)">
+    </mat-paginator>
   </div>
 </div>

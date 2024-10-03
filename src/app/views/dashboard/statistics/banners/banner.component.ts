@@ -56,7 +56,7 @@ export class BannerComponent implements OnInit {
       page_name: [this.activeTab, Validators.required],
       end_datetime: ['', Validators.required],
       start_datetime: ['', Validators.required],
-    }, { validators: this.dateComparisonValidator() }); // Apply custom validator here
+    }, { validators: this.dateComparisonValidator() });
   }
 
   // Custom validator to compare start_datetime and end_datetime
@@ -74,7 +74,7 @@ export class BannerComponent implements OnInit {
   ngOnInit(): void {
     this.getBanners("get-banners");
     this.today = new Date().toISOString().split("T")[0];
-    this.getBanners("get-banners");
+    // this.getBanners("get-banners");
   }
 
   onSubmit(): void {

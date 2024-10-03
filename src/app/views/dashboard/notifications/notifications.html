@@ -1,4 +1,4 @@
-<!-- <main class="pe-5 ps-1 pt-4 mb-10">
+<main class="pe-5 ps-1 pt-4 mb-10">
     <breadcrumb [breadCrumbData]="title" />
     <div class="loader-container" *ngIf="loading">
         <app-loader [size]="10" />
@@ -6,7 +6,7 @@
     <div class="flex gap-5" *ngIf="!loading">
         <div class="flex-1">
             <h2 class="font-bold text-2xl text-black mb-5">Notifications</h2>
-            <app-data-table [data]="list" [columns]="columns" tableHeading="Notifications Table"
+            <app-data-table [data]="data" [columns]="columns" tableHeading="Notifications Table"
                 pageTitle="Notifications" [isSearched]="false" (deleteData)="deleteElement($event)"
                 (detailView)="detailView($event)" page_name="notifications" />
         </div>
@@ -15,4 +15,4 @@
         <delete-modal-compnent [isDeleteModal]="isDeleteModal" (closeDeleteModal)="hideModal()"
             (confirmDelete)="confirmDelete()" />
     </div>
-</main> -->
+</main>

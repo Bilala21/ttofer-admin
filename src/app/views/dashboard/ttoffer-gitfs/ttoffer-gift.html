@@ -13,7 +13,7 @@
             </div>
             <app-data-table [data]="list" [columns]="columns" tableHeading="Ttoffer gifts Table"
                 pageTitle="Ttoffer gifts" [isSearched]="false" (deleteData)="deleteElement($event)"
-                (detailView)="detailView($event)" page_name="team report" [isEdit]="true" />
+                (detailView)="detailView($event)" page_name="gifts" url="/dashboard/ttoffer-gift/create" [isEdit]="true"/>
         </div>
     </div>
     <!-- <div *ngIf="viewData">

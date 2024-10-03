@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, EventEmitter, Output } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource ,MatTableModule} from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { TableSearchFromComponent } from '../table-search-form/search-from.component';
 import { RouterModule } from '@angular/router';
@@ -34,6 +33,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   @Input() searchBnText: string = "Button text"
   @Input() isSearched: boolean = true
   @Input() isEdit: boolean = false
+  @Input() url: string = ""
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<any>();
   @Output() deleteData = new EventEmitter<any>();

@@ -45,21 +45,21 @@
                         <img [src]="src ? src : '/assets/img/property.png'" alt="image" class="h-full w-full">
                     </div>
                 </div>
-                <div *ngIf="bannerForm.get('image')?.invalid && (bannerForm.get('image')?.touched || bannerForm.get('image')?.dirty)"
+                <div *ngIf="bannerForm.get('images')?.invalid && (bannerForm.get('images')?.touched || bannerForm.get('images')?.dirty)"
                     class="text-red-500 text-sm">
-                    <div *ngIf="bannerForm.get('image')?.errors?.['required']">Banner image is required.
+                    <div *ngIf="bannerForm.get('images')?.errors?.['required']">Banner image is required.
                     </div>
                 </div>
                 <div class="flex justify-center mt-[19px]">
                     <button type="button" class="h-[35px] w-[146px] border text-sm border-[#1E293B] rounded-[8px] me-5"
                         (click)="handleDeleteImg()">Delete
                         Image</button>
-                    <input type="file" id="image" class="hidden" (change)="handleFile($event)" formControlName="image"
+                    <input type="file" id="images" class="hidden" (change)="handleFile($event)" formControlName="images"
                         multiple>
 
-                    <label for="image"
+                    <label for="images"
                         class="px-4 py-2 bg-[#1E293B] text-sm text-white rounded-[8px] flex items-center justify-between gap-3">
-                        <img src="/assets/img/property.png" alt="image" width="20" height="20">
+                        <img src="/assets/img/property.png" alt="images" width="20" height="20">
                         <span> Select Image</span>
                     </label>
                 </div>
